@@ -1,0 +1,33 @@
+l1=[1,2,3,4,5,6,7,4]
+l2=[3,5,6,7,2,1,4,4]
+from collections import defaultdict
+def areListsEQ(l1,l2):
+    if len(l1)!=len(l2):
+        print "they are not equivalent"
+        return False
+    dict1=defaultdict()
+    dict2=defaultdict()
+    num_keys_dict1=0
+    num_keys_dict2=0
+    for i in range(len(l1)):
+        if l1[i] not in dict1.keys() :
+            dict1[l1[i]]=1
+            num_keys_dict1+=1
+        else:
+            dict1[l1[i]]+=1
+        if l2[i] not in dict2.keys() :
+            
+            dict2[l2[i]]=1
+            num_keys_dict2+=1
+        else:
+            dict2[l2[i]]+=1
+    if num_keys_dict1!=num_keys_dict2:
+        return False
+    else:
+        
+        for key in dict1:
+            if dict1[key]!=dict2[key]:
+                return False
+            else:
+                return True
+print areListsEQ(l1,l2) 
