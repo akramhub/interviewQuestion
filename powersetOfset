@@ -1,0 +1,17 @@
+A=['a','b','c','d']
+def powerset(A):
+    rest=[]
+    if A==[]:
+        return []
+    else:
+        
+        a=A[0]
+        rest.append([A[0]])
+        for tail in powerset(A[1:]):
+            b=[a]+tail
+            rest.append(tail)
+            rest.append(b)
+    
+    return rest
+print powerset(A) 
+print len(powerset(A))
