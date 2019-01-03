@@ -1,0 +1,37 @@
+class node:
+    def __init__(self,val):
+        self.val=val
+        self.next=None
+head=node(1)
+n2=node(2)
+n3=node(3)
+n4=node(4)
+head.next=n2
+n2.next=n3
+n3.next=n4
+def printLL(head):
+    if (head):
+        print head.val
+        printLL(head.next)
+def InversLL(head):
+    if(head and head.next):
+        
+        tmp=head.next.next
+        head.next.next=head
+        node=head.next
+        head.next=None
+        
+        
+    while(node and tmp):
+        temp=tmp.next
+        tmp.next=node
+        node=tmp
+        tmp=temp
+        
+    if (node):
+        head=node
+    return head
+#printLL(head)
+print "+++++++++++++++++++"
+head=InversLL(head)
+printLL(head)
