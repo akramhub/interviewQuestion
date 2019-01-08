@@ -1,0 +1,70 @@
+
+
+class emploee:
+    def __init__(self, name):
+        self.name=name
+        self.reporters=[]
+samir = emploee("samir")
+dom = emploee("dom")
+michael =emploee("michael")
+peter =emploee("peter")
+porter =emploee("porter")
+bob =emploee("bob")
+dom.reporters = [ bob,porter,peter]
+milton =emploee("milton")
+nina = emploee("nina")
+peter.reporters = [milton, nina]
+bill = emploee("bill")
+bill.reporters = [dom, samir, michael]    
+
+def finclosemanager(E1,E2,CEO):
+    print "run"
+    flag=False
+    if CEO==None or E1==None or E2==None:
+        return None
+    if CEO.name==E1.name or CEO.name==E2.name or (cover(CEO,E1) and cover(CEO,E2)):
+        
+        flag=True
+        result=[CEO,flag]
+        print "1",cover(CEO,E1),cover(CEO,E2),CEO.name,E1.name,E2.name, result[0].name,result[1]
+    else:
+        if (cover(CEO,E1) and E1.reporters==[]) or (cover(CEO,E2) and E2.reporters==[]) :
+            flag=True 
+            result=[CEO,flag]
+            
+            print "2"
+        else:
+        
+            print "aaaaaa"
+            l=CEO.reporters
+            if l!=[]:
+                i=0
+                while(i<len(l)):
+                    print "iiiiiiii",l[i].name
+                    result=finclosemanager(E1,E2,l[i])
+                    print "3"
+                    if result[1] :
+                        i=len(l)
+                        print "i", i
+                    if not result[1]:
+                        i+=1
+            else:
+                print "maghto"
+                result=[None,False]
+                return result
+            
+    return result
+                    
+                
+                
+      
+def cover(manager,em):
+    if manager==None:
+        return False
+    if manager.reporters!=[] and em in manager.reporters:
+        return True
+
+
+    
+l=finclosemanager(milton, nina,bill)
+print l[0].name
