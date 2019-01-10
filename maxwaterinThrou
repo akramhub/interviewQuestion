@@ -1,0 +1,41 @@
+#Given a plot that has peaks and troughs, find the maximum volume of rain water that can be trapped in one trough. 
+arr=[2,1,1,1,0,1,1,3,3,3,2,1,1,1,1,1,1,2,3,3,4,4] 
+def maxwaterinThrou(arr):
+    l=findpeaks(arr)
+    print l
+    return calculatemaxwater(l,arr)
+def findpeaks(a):
+    lpeak=[]
+    lindex=[]
+    tmp=1
+    for i in range(len(arr)-1):
+        diff=a[i+1]-a[i]
+        print diff,tmp
+        if tmp>0 and diff<0:
+            
+            lpeak.append(a[i])
+            print lpeak,"lpeak"
+            lindex.append(i)
+        if diff!=0:
+            tmp=diff
+    if tmp>0:
+        lpeak.append(a[-1]) 
+        lindex.append(len(arr)-1)
+    return [lpeak,lindex] 
+def calculatemaxwater(l,arr):
+    lpeak=l[0]
+    lindex=l[1]
+    maxwater=0
+    for j in range(len(lindex)-1):
+        
+        k=lindex[j]
+        print j,j+1,k,lindex[j+1]
+        summ=0
+        while(k<lindex[j+1]):
+            if arr[k]<min(lpeak[j],lpeak[j+1]):
+                summ=abs(arr[k]-min(lpeak[j],lpeak[j+1]))+summ
+            k+=1
+        if summ>=maxwater:
+            maxwater=summ
+    return maxwater
+print maxwaterinThrou(arr),"result"
