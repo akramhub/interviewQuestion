@@ -1,5 +1,4 @@
 
-#closestCommonManager
 class emploee:
     def __init__(self, name):
         self.name=name
@@ -17,54 +16,47 @@ peter.reporters = [milton, nina]
 bill = emploee("bill")
 bill.reporters = [dom, samir, michael]    
 
-def finclosemanager(E1,E2,CEO):
-    print "run"
-    flag=False
-    if CEO==None or E1==None or E2==None:
-        return None
-    if CEO.name==E1.name or CEO.name==E2.name or (cover(CEO,E1) and cover(CEO,E2)):
-        
-        flag=True
-        result=[CEO,flag]
-        print "1",cover(CEO,E1),cover(CEO,E2),CEO.name,E1.name,E2.name, result[0].name,result[1]
-    else:
-        if (cover(CEO,E1) and E1.reporters==[]) or (cover(CEO,E2) and E2.reporters==[]) :
-            flag=True 
-            result=[CEO,flag]
-            
-            print "2"
-        else:
-        
-            print "aaaaaa"
-            l=CEO.reporters
-            if l!=[]:
-                i=0
-                while(i<len(l)):
-                    print "iiiiiiii",l[i].name
-                    result=finclosemanager(E1,E2,l[i])
-                    print "3"
-                    if result[1] :
-                        i=len(l)
-                        print "i", i
-                    if not result[1]:
-                        i+=1
-            else:
-                print "maghto"
-                result=[None,False]
-                return result
-            
-    return result
-                    
-                
-                
-      
-def cover(manager,em):
-    if manager==None:
-        return False
-    if manager.reporters!=[] and em in manager.reporters:
-        return True
-
-
+def findclosecommon_manger(E1,E2,CEO):
+    lp1=[]
+    lp2=[]
+    print CEO.name,"-------",E1.name,E2.name
     
-l=finclosemanager(milton, nina,bill)
-print l[0].name
+    if getmanagers(E1,CEO,lp1) and getmanagers(E2,CEO,lp2):
+        
+        lp1.append(CEO.name)
+        lp2.append(CEO.name)
+        
+        print lp2,"lp2",lp1,"lp1"
+        print findcommonManager(lp1,lp2)
+def getmanagers(E,manager,lp):
+    print E.name, manager.name
+    if E==None or manager==None:
+        return False
+    if E.name==manager.name:
+        #lp.append(manager.name)
+        print manager.name,"CEO/////////////////",E.name
+        return True
+    else:
+        if manager.reporters!=[]:
+            #c = 0;
+            for x in manager.reporters:
+                #print c
+                #c += 1
+                if getmanagers(E,x,lp):
+                    lp.append(x.name)
+                    return True
+            return False
+
+        else:
+            return False
+def findcommonManager(lp1,lp2):
+    n=min(len(lp1),len(lp2))
+    i=-1
+    print i, lp1[i], lp2[i],n
+    while(i>=-n and lp1[i]==lp2[i]):
+        print i
+        i-=1
+    print lp1[i+1]
+    return lp1[i+1]
+    
+print findclosecommon_manger(milton,bob,bill)    
