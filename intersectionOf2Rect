@@ -1,0 +1,41 @@
+# inverse double linked list
+class line:
+    def __init__(self,start,end):
+        self.start=start
+        self.end=end
+        
+class rec:
+    def __init__(self,l1,l2):
+        self.x=l1
+        self.y=l2
+        
+def Rec_intersection(rec1,rec2):
+    x=lin_intersection(rec1.x,rec2.x)
+    y=lin_intersection(rec1.y,rec2.y)
+    if x and y:
+        return rec(x,y)
+    else:
+        return None
+    
+
+def lin_intersection(l1,l2) :
+    if l1.start<=l2.start: 
+        if l2.start<=l1.end:
+            return line(l2.start,min(l1.end,l2.end))
+        else:
+            return None
+    else:
+        if l1.start<=l2.end:
+            return line(l1.start,min(l1.end,l2.end))
+        else:
+            return None
+def main():            
+    rec1=rec(line(10,101),line(10,101))
+    rec2=rec(line(101,200),line(100,200))
+    
+    rec_int=Rec_intersection(rec1,rec2)
+    if rec_int:
+        print rec_int.x.start, rec_int.x.end, rec_int.y.start, rec_int.y.end
+    else:
+        print "no intersection"
+main()
