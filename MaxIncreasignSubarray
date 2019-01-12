@@ -1,0 +1,15 @@
+arr=[90,80,34,22,23,25,33,34,7,8,9,1,2,3,4]
+def subarray_increasing(arr):
+    counter=0
+    maxsequence=0
+    for i in range(len(arr)-1):
+        if arr[i+1]>=arr[i]:
+            counter+=1
+        else:
+            if counter+1>maxsequence:
+                maxsequence=counter+1
+                print counter+1,"counter", i
+                subarr=arr[(i-counter):i+1]
+            counter=0
+    return subarr
+print subarray_increasing(arr)
