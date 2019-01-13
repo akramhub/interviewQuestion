@@ -1,0 +1,37 @@
+import numpy as np
+
+b=np.zeros((9,9))
+b[0][0:10]=[0,0,1,1,1,1,1,1,1]
+b[1][0:10]=[0,0,1,1,1,1,0,1,1]
+b[2][0:10]=[1,1,1,1,0,0,0,0,1]
+b[3][0:10]=[1,0,0,0,0,0,0,1,1]
+b[4][0:10]=[1,1,0,0,0,0,0,0,0]
+b[5][0:10]=[1,1,1,1,1,1,1,1,1]
+b[6][0:10]=[0,0,1,0,0,1,0,1,1]
+print b
+m=b
+
+def Neighbotfill(x,y,color,c,m):
+    if m[x+1][y]==1 or m[x-1][y]==1 or m[x][y+1]==1 or m[x][y-1]:
+        m[x][y]=color
+    #right neighbor  -----------   R  ------------
+    if m[x+1][y]==c:
+        if m[x+2][y]==1 or m[x][y]==1 or m[x+1][y+1]==1 or m[x+1][y-1]:
+            m[x+1][y]=color
+            Neighbotfill(x+1,y,color,c,m)
+    if m[x-1][y]==c:
+        if m[x][y]==1 or m[x-2][y]==1 or m[x-1][y+1]==1 or m[x-1][y-1]:
+            m[x-1][y]=color
+            Neighbotfill(x-1,y,color,c,m) 
+    if m[x][y+1]==c:
+        if m[x+1][y+1]==1 or m[x-1][y+1]==1 or m[x][y+2]==1 or m[x][y]:
+            m[x][y+1]=color
+            Neighbotfill(x,y,color,c,m) 
+    if m[x][y-1]==c:
+        if m[x+1][y-1]==1 or m[x-1][y-1]==1 or m[x][y]==1 or m[x][y-2]:
+            m[x][y-1]=color
+            Neighbotfill(x,y-1,color,c,m)  
+    return m
+c=m[3][5]  
+print c
+print Neighbotfill(3,5,2,c,m)
