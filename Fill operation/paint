@@ -1,0 +1,47 @@
+import numpy as np
+
+b=np.zeros((9,9))
+b[0][0:10]=[0,0,1,1,1,1,1,1,1]
+b[1][0:10]=[0,0,1,1,1,1,0,1,1]
+b[2][0:10]=[1,1,1,1,0,0,0,0,1]
+b[3][0:10]=[1,0,0,0,0,0,0,1,1]
+b[4][0:10]=[1,1,0,0,0,0,0,0,0]
+b[5][0:10]=[1,1,0,0,0,0,0,0,0]
+b[6][0:10]=[1,1,1,1,1,1,1,1,1]
+b[7][0:10]=[0,0,1,0,0,1,0,1,1]
+print b
+m=b
+def checkNeighborForborder(x,y):
+    
+    if m[x+1][y]==1 or m[x-1][y]==1 or m[x][y+1]==1 or m[x][y-1]==1:
+        return True
+    else:
+        return False
+def Neighbotfill(x,y,color,c,m):
+    if checkNeighborForborder(x,y):
+        m[x][y]=color
+    else:
+        m[x][y]=color-10
+        #right neighbor  -----------   R  ------------
+    for i in [1,-1]:
+        if x+i<9 and x-i>-1 and  m[x+i][y]==c :
+            if checkNeighborForborder(x+i,y):
+                m[x+i][y]=color
+                
+            else:
+                m[x+i][y]=color-10
+            Neighbotfill(x+i,y,color,c,m)
+    for i in [1,-1]:
+        if y+i<9 and y-1>-1 and m[x][y+i]==c:
+            if checkNeighborForborder(x,y+i):
+                m[x][y+i]=color
+                
+            else:
+                m[x][y+i]=color-10
+            Neighbotfill(x,y+i,color,c,m)
+      
+    return m
+    
+c=m[3][5]  
+print c,"llllllllllll"
+print Neighbotfill(3,5,2,c,m)
