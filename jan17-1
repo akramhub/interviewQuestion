@@ -1,0 +1,58 @@
+import numpy as np
+from collections import deque
+n=8
+chess_board=np.arange(n*n).reshape((n,n))
+print chess_board
+def neighbors(s):
+    i=s[0]
+    j=s[1]
+    l=[]
+    if i>1 and j<7:
+        #l.append((i-2)*n+(j+1))
+        l.append((i-2,j+1))
+    if i>1 and j>0:
+        #l.append((i-2)*n+(j-1))
+        l.append((i-2,j-1))
+    if i<6 and j<7:
+        l.append((i+2,j+1))
+        
+    if i<6 and j>0:
+        l.append((i+2,j-1))
+    if i>0 and j<6:    
+        l.append((i-1,j+2))
+    if i>0 and j>1:
+        l.append((i-1,j-2))
+    if i<7 and j<6:
+        l.append((i+1,j+2))
+    if i<7 and j>1:
+        l.append((i+1,j-2))
+    return l
+ds=deque()
+ds.append(1)
+ds.append(2)
+ds.append(3)
+print ds.popleft()
+def finminpath(s,f,chess_board,graph):
+    d=deque()
+    c=0
+    while(f not in graph.keys()  ):
+        
+        l=neighbors(s)
+       # print l,c,'counter',len(d)
+        for i in l:
+            d.append(i)  
+            c+=1
+            if i in graph.keys():
+                if graph[s]+1<graph[i]:
+                    graph[i]= graph[s]+1
+            else:
+                graph[i]=1+graph[s]
+        if len(d)>0:
+            s=d.popleft() 
+        else:
+            graph[f]=None
+        #print s,"poped"
+    return graph[f]     
+    
+            
+print finminpath((0,1),(7,7),chess_board,{(0,1):0})
