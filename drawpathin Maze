@@ -1,0 +1,84 @@
+import numpy as np
+from collections import deque
+n=8
+#maz=np.arange(n*n).reshape((n,n))
+maz=np.zeros((n,n))
+maz[0,2]=-1
+maz[1,2]=-1
+maz[2,2]=-1
+maz[3,0]=-1
+maz[4,1]=-1
+maz[5,1]=-1
+maz[5,2]=-1
+maz[5,3]=-1
+print maz
+def neighbors(s,n,maz):
+    l=[]
+    i=s[0]
+    j=s[1]
+    if (i<n-1  and maz[i+1][j]!=-1):
+        l.append((i+1,j))
+    if (i>0 and maz[i-1][j]!=-1):
+        l.append((i-1,j))
+    if (j<n-1 and maz[i][j+1]!=-1):
+        l.append((i,j+1))
+    if (j>0 and maz[i][j-1]!=-1):
+        l.append((i,j-1))
+    
+    return l
+ds=deque()
+ds.append(1)
+ds.append(2)
+ds.append(3)
+print ds.popleft()
+def finminpath(s,f,maz,graph):
+    d=deque()
+    c=0
+    while(f not in graph.keys()  ):
+        
+        l=neighbors(s,8,maz)
+       # print l,c,'counter',len(d)
+        for i in l:
+            c+=1
+            d.append(i)  
+            
+            if i in graph.keys():
+                if graph[s]+1<graph[i]:
+                    graph[i]= graph[s]+1
+                    maz[i[0]][i[1]]=graph[i]
+            else:
+                graph[i]=1+graph[s]
+                maz[i[0]][i[1]]=graph[i]
+        if len(d)>0:
+            s=d.popleft() 
+        else:
+            graph[f]=None
+        #print s,"poped"
+    return graph[f]    
+def findpath(s,f,maz):
+    path=[]
+    m=maz[f[0],f[1]]
+    path.append(f)
+    while(f!=s):
+        for i in neighbors(f,n,maz):
+            if maz[i[0]][i[1]]==m-1:
+                path.append(i)
+                m=m-1
+                break
+        f=i
+    return path     
+def drawpath(path,n,s,f):
+    board=np.zeros((n,n))
+    for i in path:
+        if i==s:
+            board[i[0]][i[1]]=111 
+        elif i==f:
+            board[i[0]][i[1]]=999
+        else:
+            board[i[0]][i[1]]=5
+    return board    
+print finminpath((0,0),(7,7),maz,{(0,0):0})   
+print findpath((0,0),(7,7),maz)
+path=findpath((0,0),(7,7),maz)
+print drawpath(path,8,(0,0),(7,7))       
+            
