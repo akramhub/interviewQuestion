@@ -1,0 +1,70 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+
+using namespace std; 
+#include <queue>
+#include <iostream> 
+#include <vector> 
+#include <map>
+#include <cassert>
+vector<pair<int,int>> neighbord(int i,int j,int x,int y,int n)
+{
+   vector <pair<int,int>>l;
+   if (i>1 && j<n-1)  l.push_back(pair<int,int>(i-2,j+1));
+    if ( i>1 && j>0) l.push_back(pair<int,int>(i-2,j-1));
+    if (i<n-2 and j<n) l.push_back(pair<int,int>(i+2,j+1));
+    if (i<n-2 and j>0) l.push_back(pair<int,int>(i+2,j-1));
+    if (i>0 and j<n-2)  l.push_back(pair<int,int>(i-1,j+2));
+    if (i>0 and j>1) l.push_back(pair<int,int>(i-1,j-2));
+    if (i<n-1 and j<n-2) l.push_back(pair<int,int>(i+1,j+2));
+    if (i<n-1 and j>1) l.push_back(pair<int,int>(i+1,j-2));
+    return l;
+}
+
+int main()
+{
+  vector<pair<int,int>> l=neighbord(4,4,7,7,8);
+    pair<int,int> s=pair<int,int>(4,4);
+    pair<int,int> f=pair<int,int>(7,7);
+  
+    for (vector<pair<int,int>>::iterator it = l.begin(); it != l.end(); ++it){
+        cout << it->first<<","<<it->second<<endl;
+    }
+    map<pair<int,int>,int> m;
+    queue<pair<int,int>> d;
+    while(m.find(f)==m.end())
+    {
+        l=neighbord(s.first,s.second,7,7,8);
+    for (vector<pair<int,int>>::iterator it=l.begin(); it!=l.end();++it){
+        d.push(*it);
+        if (m.find(*it)!=m.end())
+        {
+            if(m[s]+1<m[*it]) m[*it]=m[s]+1; 
+        }
+        else m[*it]=m[s]+1;
+    }
+    if (!d.empty()){   
+        s=d.front();
+        d.pop();
+    }
+    else m[f]=-1;
+    }
+    cout<< m[f]<<endl;
+    return 0;
+    
+}
