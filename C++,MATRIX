@@ -1,0 +1,36 @@
+
+#include <stdio.h>
+#include <set>
+#include <vector> 
+#include <map>
+#include <cassert>
+#include <bits/stdc++.h> 
+using namespace std;
+bool ispairthere(const vector<int> data,int sum,int *result,vector <vector<int>> &A)
+{
+    set<int> s;
+    for (int value :data)
+    {
+        if (s.find(value)!=s.end()) {
+            *result=value;
+            A[0][0]=21;
+            A[1][1]=22;
+            //cout<< "new value =" << value << " & result = " << result << endl;
+            return true;
+        }
+        else s.insert(sum-value);
+    }
+    return false;
+}
+int main()
+{
+    const vector<int> data{1,2,4,4};
+    int sum=8;
+    int result=-1;
+    vector <vector<int>> A;
+    A={{1,2},{3,4}};
+    bool temp = ispairthere(data, sum,&result,A);
+    cout<< temp <<"value"<<result<<" & " << A[0][0]<<endl;
+
+    return 0;
+}
