@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <set>
+#include <vector> 
+#include <map>
+#include <cassert>
+#include <bits/stdc++.h> 
+using namespace std;
+struct TNode{
+    int value;
+   vector <TNode *>child;
+};
+
+int findMax(TNode *node){
+    if (node->child.size()==0) return node->value;
+    int tempmax=0;
+    for(vector<TNode *>::iterator it=node->child.begin();it!=node->child.end();it++)
+    {
+        int tmp=findMax(*it);
+        if(tmp>tempmax) tempmax=tmp;
+    }
+    return tempmax+node->value;
+}
+
+int main()
+{
+   TNode n1,n2,n3,n4,n5,n6;
+   n1.value=4;
+   n2.value=3;
+   n3.value=6;
+   n4.value=2;
+   n5.value=4;
+   n6.value=8;
+   n1.child.push_back(&n2);
+   n1.child.push_back(&n3);
+   n2.child.push_back(&n4);
+  n3.child.push_back(&n5);
+  n3.child.push_back(&n6);
+   
+   
+   int tmp =findMax(&n1);
+   cout<<tmp<<endl;
+   
+   return 0;
+}
