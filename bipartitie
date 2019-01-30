@@ -1,0 +1,21 @@
+import random
+from collections import deque
+d = deque('ghi') 
+graph={"1":["4","5"],"2":["4","5","6"],"3":["5","6"], "4":["1","2","3"],"5":["2","3"],"6":["2","1"]}
+def chechbipart(graph):
+    dict={}
+    key=random.choice(graph.keys())
+    dict[key]=0
+    d=deque(key)
+    while (len(d)>0):
+        key=d.popleft()
+        for node in graph[key]:
+            if node not in dict.keys():
+                d.append(node)
+                dict[node]=1-dict[key]
+            else:
+                if dict[node]!=1-dict[key]:
+                    print "conflict",key, node
+                    return False
+    return True
+print chechbipart(graph)
